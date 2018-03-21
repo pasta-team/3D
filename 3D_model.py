@@ -22,7 +22,7 @@ element_color = [[1.0, 0.8, 0.8],[0.98907, 0.91312, 0.81091],[0.52731, 0.87953, 
 element_negativity = [2.2, 0.0, 0.98, 1.57, 2.04, 2.55, 3.04, 3.44, 3.98, 0.0, 0.93, 1.31, 1.61, 1.9, 2.19, 2.58, 3.16, 0.0, 0.82, 1.0, 1.36, 1.54, 1.63, 1.66, 1.55, 1.83, 1.88, 1.91, 1.9, 1.65, 1.81, 2.01, 2.18, 2.55, 2.96, 3.0, 0.82, 0.95, 1.22, 1.33, 1.6, 2.16, 1.9, 2.2, 2.28, 2.2, 1.93, 1.69, 1.78, 1.96, 2.05, 2.1, 2.66, 2.6, 0.79, 0.89, 1.1, 1.12, 1.13, 1.14, 1.13, 1.17, 1.2, 1.2, 1.2, 1.22, 1.23, 1.24, 1.25,1.1, 1.27, 1.3, 1.5, 2.36, 1.9, 2.2, 2.2, 2.28, 2.54, 2.0, 1.62, 2.33, 2.02, 2.0, 2.2, 2.2, 0.7, 0.9, 1.1, 1.3, 1.5, 1.38, 1.36, 1.28, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, 1.3, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0,]
 
 # vesta bond setting
-with open('/data/control/style.ini','r') as tmp:
+with open('style.ini','r') as tmp:
     bond_list_ini = tmp.readlines()
 
 class element(object):
@@ -132,19 +132,21 @@ def conclude_cover(i, j, k, index_list):
     return plane
 
 # read the log
-with open('/data/control/add_position.log','r') as file:
-    path_list_old = [i.replace('\n','') for i in file.readlines()]
+# with open('/data/control/add_position.log','r') as file:
+#     path_list_old = [i.replace('\n','') for i in file.readlines()]
 
-path_list_total = os.listdir('/data/datafile/')
+# path_list_total = os.listdir('/data/datafile/')
 
-path_list = list(set(path_list_total) ^ set(path_list_old))
+# path_list = list(set(path_list_total) ^ set(path_list_old))
+
+path_list = ['/']
 
 for path in path_list:
     # only one atom.config read
     # atom.config,POSCAR
-    print(path)
-    os.chdir('/data/datafile/{0}'.format(path))
-    with open('/data/datafile/{0}/atom.config'.format(path),'r') as tmp:
+    # print(path)
+    # os.chdir('/data/datafile/{0}'.format(path))
+    with open('atom.config','r') as tmp:
         atom_config = tmp.readlines()
 
     atom_amount = int(atom_config[0].split()[0])
@@ -281,5 +283,3 @@ for path in path_list:
         f.write('var angle = [{0:.2f}, {1:.2f}, {2:.2f}],\n'.format(angle[0],angle[1],angle[2]))
         f.write('vector_length = {};\n'.format(lattice_vector_length))
         f.write('var scale_position = {:.2f}'.format(scale_position))
-
-    os.system('echo "{}" >> /data/control/add_position.log'.format(path))
