@@ -5,4 +5,5 @@ atom.config: crystal structure file;
 modula.js: Using three.js to draw the 3D structure in website;
 jquery.min.js and three.min.js are the script of website;
 style.ini is the config of Vesta.
-Created by Lishucheng on 2018.3.21
+Created by Lishucheng on 2018.3.21.
+The sample show as http://www.pkusam.com/bdm/material.html?id=738697.
